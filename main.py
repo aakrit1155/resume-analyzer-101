@@ -224,11 +224,10 @@ else:
     if st.session_state.analysis_complete:
         st.header("Resume Analysis Results")
 
-        # Display the analysis results and chat history
-        st.markdown("### Initial Analysis")
-
-        with st.chat_message("assistant"):
-            st.write(st.session_state.initial_analysis_results)
+        with st.expander("### Initial Analysis", expanded=False):
+            # Display the analysis results and chat history
+            with st.chat_message("assistant"):
+                st.write(st.session_state.initial_analysis_results)
 
         st.markdown("### Follow-up Questions")
         for msg in st.session_state.chat_history:
