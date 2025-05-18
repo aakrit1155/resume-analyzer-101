@@ -31,3 +31,44 @@
 ```bash
 git clone https://github.com/yourusername/resume-analyzer-101.git
 cd resume-analyzer-101
+```
+
+## Setup Virtual Environment for Local installation
+
+### Using [uv](https://docs.astral.sh/uv/) - recommended approach
+```bash
+uv sync
+```
+
+### Using pip venv - recommended approach
+```bash
+python -m venv .venv
+.\.venv\Scripts\activate
+pip install -r requirements.txt
+```
+
+## 3. Configure Your Google API Key
+- Get your API key from Google AI Studio.
+- You can either:
+    - Set it in a .env file as GOOGLE_API_KEY=your-key-here, or
+    - Enter it directly in the app when prompted.
+
+## 4. Running the app
+
+```bash
+streamlit run main.py
+```
+
+#### The app will open in your browser. Follow the on-screen instructions to upload your resume and job description.
+
+## 🌐 Live Demo
+
+The project will be available at:
+[streamlit](resume-analyzer-101.streamlit.app)
+
+## 📢 About
+Built by **Aakrit** using **Streamlit, LangChain, and Google GenAI**.
+Empowering job seekers to land their dream roles with smarter, AI-driven resume feedback!
+
+
+
