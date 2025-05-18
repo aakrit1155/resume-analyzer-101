@@ -33,7 +33,7 @@ git clone https://github.com/yourusername/resume-analyzer-101.git
 cd resume-analyzer-101
 ```
 
-## Setup Virtual Environment for Local installation
+## 2. Setup Virtual Environment for Local installation
 
 ### Using [uv](https://docs.astral.sh/uv/) - recommended approach
 ```bash
