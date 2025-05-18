@@ -9,7 +9,9 @@ from PIL import Image
 
 def get_images_from_pdf(pdf_bytes: bytes) -> Union[List[Image.Image], None]:
     try:
-        return convert_from_bytes(pdf_bytes, poppler_path=None, grayscale=False)
+        return convert_from_bytes(
+            pdf_bytes, poppler_path=None, grayscale=False, dpi=300
+        )
     except Exception as e:
         print(f"Error converting PDF to images: {str(e)}")
         return None

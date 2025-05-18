@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 from langchain.schema.messages import AIMessage, HumanMessage, SystemMessage
 from langchain_google_genai import ChatGoogleGenerativeAI
 
-from dummy import DummyLLM as ChatGoogleGenerativeAI
+# from dummy import DummyLLM as ChatGoogleGenerativeAI
 from utils import get_images_from_pdf, image_to_base64
 
 load_dotenv()
@@ -31,6 +31,8 @@ if "initial_analysis_results" not in st.session_state:
     st.session_state.initial_analysis_results = None
 if "is_image_converted" not in st.session_state:
     st.session_state.is_image_converted = False
+if "images" not in st.session_state:
+    st.session_state.images = []
 
 
 sys_message = SystemMessage(
@@ -47,6 +49,7 @@ def start_over():
     st.session_state.chat_history = []
     st.session_state.image_bytes = []
     st.session_state.is_image_converted = False
+    st.session_state.images = []
 
     st.rerun()
 
@@ -107,6 +110,7 @@ else:
                     st.session_state.image_bytes = []
                     print(f"Extracted {len(images)} from the uploaded PDF file.")
                     for img in images:
+                        st.session_state.images.append(img)
                         st.session_state.image_bytes.append(image_to_base64(img))
                     st.session_state.is_image_converted = True
                     print(
@@ -142,8 +146,13 @@ else:
 
     else:
         # Display the resume content
-        with st.expander("View Your Resume Content", expanded=False):
+        with st.expander("View Your Resume Content (text)", expanded=False):
             st.write(st.session_state.resume_content)
+
+        with st.expander("View Your Resume (Image)", expanded=False):
+            for i, img in enumerate(st.session_state.images):
+                st.markdown(f"--------PAGE-{i+1}----------")
+                st.image(img, caption="resume", use_container_width=True)
 
     # Step 3: Resume Display and Analysis
     if (
@@ -210,9 +219,6 @@ else:
             st.error(f"Error during analysis: {str(e)}")
             print(f"Error during analysis: {str(e)}")
             st.write("Please check your API key and try again, or start over.")
-    else:
-        if not st.session_state.is_image_converted:
-            st.warning("Please check the logs. The pdf to image conversion has failed.")
 
     # Step 4: Interactive Q&A
     if st.session_state.analysis_complete:
