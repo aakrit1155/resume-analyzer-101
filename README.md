@@ -37,6 +37,7 @@ cd resume-analyzer-101
 
 ### Using [uv](https://docs.astral.sh/uv/) - recommended approach
 ```bash
+cd resume-analyzer-101
 uv sync
 ```
 
